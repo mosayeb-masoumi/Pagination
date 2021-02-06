@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Adapter adapter;
     ProgressBar progressbar;
+    RelativeLayout rl_loading;
 
-    Button btn;
 
     int totalServerItems = 21;
     boolean isScrolling = false;
@@ -39,17 +40,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn = findViewById(R.id.btn);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (list.size() < totalServerItems) {
-                    loadData();
-                }
-            }
-        });
+
 
         progressbar = findViewById(R.id.progressbar);
+        rl_loading = findViewById(R.id.rl_loading);
+
         recyclerView = findViewById(R.id.rv);
 
 
@@ -107,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         progressbar.setVisibility(View.VISIBLE);
+        rl_loading.setVisibility(View.VISIBLE);
 
         final Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(() -> {
@@ -114,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
             listSize = list.size() + list2.size();
             list.addAll(list2);
             adapter.notifyDataSetChanged();
+
             progressbar.setVisibility(View.GONE);
+            rl_loading.setVisibility(View.GONE);
 
 
         }, 1000);
