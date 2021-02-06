@@ -42,14 +42,4 @@ public class Adapter  extends RecyclerView.Adapter<MyViewHolder> {
     }
 
 
-    public void addlisttop(List<Integer> list)
-    {
-        for(int i=0;i<list.size();i++)
-        {
-            MianList.add(i,list.get(i));
-            notifyItemInserted(i);
-        }
-
-
-    }
 }
